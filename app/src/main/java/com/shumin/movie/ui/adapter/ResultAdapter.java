@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.shumin.movie.R;
+import com.shumin.movie.model.Result;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +17,9 @@ import java.util.List;
  */
 public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Object> content = new ArrayList<>();
+    private List<Result.Search> content = new ArrayList<>();
 
-    public ResultAdapter (List<Object> results) {
-        content.clear();
+    public ResultAdapter (List<Result.Search> results) {
         content.addAll(results);
     }
 
@@ -32,7 +32,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-//        ((ResultViewHolder) holder).textView.setText(content.get(position));
+        ((ResultViewHolder) holder).textView.setText(content.get(position).Title);
     }
 
     @Override

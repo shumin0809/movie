@@ -5,8 +5,6 @@ package com.shumin.movie.constant;
  */
 public class Constants {
 
-    public static final String END_POINT = "http://www.omdbapi.com";
-
-    public static final String SEARCH = "/?";
+    public static final String END_POINT = "http://www.omdbapi.com/?";
 
 }

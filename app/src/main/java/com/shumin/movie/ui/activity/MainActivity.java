@@ -7,8 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.shumin.movie.R;
-import com.shumin.movie.model.Movie;
+import com.shumin.movie.model.Result;
 import com.shumin.movie.rest.RestClient;
+import com.shumin.movie.ui.adapter.ResultAdapter;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -20,7 +21,10 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private TextView movie;
+    private TextView resultBrif;
+    private ResultAdapter adapter;
+
+    private Result result;
 
 
     @Override
@@ -32,24 +36,29 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        movie = (TextView) findViewById(R.id.movie);
+        resultBrif = (TextView) findViewById(R.id.result);
 
         Map<String, String> params = new LinkedHashMap<>();
-        params.put("t", "batman");
-        params.put("plot", "short");
-        params.put("r", "json");
-        params.put("y", "2016");
-        Call<Movie> call = RestClient.getClient().searchMovie(params);
-        call.enqueue(new Callback<Movie>() {
+        params.put("s", "ba");
+        Call<Result> call = RestClient.getClient().searchMovie(params);
+        call.enqueue(new Callback<Result>() {
             @Override
-            public void onResponse(Call<Movie> call, Response<Movie> response) {
+            public void onResponse(Call<Result> call, Response<Result> response) {
                 if (response.isSuccessful()) {
-                    movie.setText(response.body().Title);
+                    result = response.body();
+                    if (result.hasResponse()) {
+                        resultBrif.setText("Total Results: " + result.getSize());
+                        if (result.getSize() > 0) {
+                            recyclerView.setAdapter(adapter = new ResultAdapter(result.getResults()));
+                        }
+                    } else {
+                        resultBrif.setText(result.getError());
+                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<Movie> call, Throwable t) {
+            public void onFailure(Call<Result> call, Throwable t) {
 
             }
         });
