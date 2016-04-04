@@ -15,7 +15,7 @@ import retrofit2.http.QueryMap;
 public interface RetrofitApi {
 
     @GET("/")
-    Call<Result> searchMovie(@QueryMap Map<String, String> params);
+    Call<Result> searchMovie(@QueryMap Map<String, Object> params);
 
     @GET("/")
     Call<Movie> getMovieDetail(@QueryMap Map<String, String> params);

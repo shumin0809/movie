@@ -25,11 +25,18 @@ import retrofit2.Response;
  */
 public class SearchFragment extends BaseFragment {
 
+    private static final int MOVIES_PER_PAGE = 10;
+
     private RecyclerView recyclerView;
     private ResultAdapter adapter;
     private TextView searchResult;
 
     private Result result;
+
+    private int page = 1;
+    private LinearLayoutManager linearLayoutManager;
+
+    private boolean isLoading;
 
 
     @Override
@@ -38,22 +45,41 @@ public class SearchFragment extends BaseFragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         searchResult = (TextView) view.findViewById(R.id.result);
 
-        search();
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) {
+                    if (!isLoading) {
+                        if (isLastItemVisible()) {
+                            if (MOVIES_PER_PAGE * page < result.getSize()) {
+                                search("tt", ++page);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        search("tt", page);
 
         return view;
     }
 
-    private void search() {
-        Map<String, String> params = new LinkedHashMap<>();
-        params.put("s", "ba");
+    private void search(String search, int page) {
+        isLoading = true;
+        Map<String, Object> params = new LinkedHashMap<>();
+        params.put("s", search);
+        params.put("page", page);
         Call<Result> call = RestClient.getClient().searchMovie(params);
         call.enqueue(new Callback<Result>() {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
+                isLoading = false;
                 if (response.isSuccessful()) {
                     result = response.body();
                     if (result.hasResponse()) {
@@ -63,7 +89,11 @@ public class SearchFragment extends BaseFragment {
                             } else {
                                 searchResult.setText(getString(R.string.search_results, result.getSize()));
                             }
-                            recyclerView.setAdapter(adapter = new ResultAdapter(result.getMovies()));
+                            if (adapter == null) {
+                                recyclerView.setAdapter(adapter = new ResultAdapter(result.getMovies()));
+                            } else {
+                                adapter.addMovies(result.getMovies());
+                            }
                         }
                     } else {
                         searchResult.setText(result.getError());
@@ -73,8 +103,12 @@ public class SearchFragment extends BaseFragment {
 
             @Override
             public void onFailure(Call<Result> call, Throwable t) {
-
+                isLoading = false;
             }
         });
+    }
+
+    private boolean isLastItemVisible() {
+        return linearLayoutManager.findLastVisibleItemPosition() >= linearLayoutManager.getItemCount() - 1;
     }
 }

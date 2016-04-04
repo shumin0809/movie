@@ -41,6 +41,11 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return content.size();
     }
 
+    public void addMovies(List<Movie> movies) {
+        content.addAll(movies);
+        notifyDataSetChanged();
+    }
+
     public static class ResultViewHolder extends RecyclerView.ViewHolder {
         MovieCardLayout movieCardLayout;
 
