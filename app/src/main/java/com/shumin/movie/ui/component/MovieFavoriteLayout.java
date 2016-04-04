@@ -38,7 +38,6 @@ public class MovieFavoriteLayout extends RelativeLayout {
 
     public void setContent(final Movie movie) {
         ((TextView) findViewById(R.id.title)).setText(movie.getTitle());
-        ((TextView) findViewById(R.id.year)).setText(movie.getReleaseYear());
         Picasso.with(getContext()).load(movie.getPosterUrl())
                 .placeholder(R.mipmap.imdb).into((ImageView) findViewById(R.id.poster));
         findViewById(R.id.delete).setOnClickListener(new OnClickListener() {
