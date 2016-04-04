@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.shumin.movie.R;
-import com.shumin.movie.event.Events;
 import com.shumin.movie.model.Movie;
 import com.shumin.movie.ui.component.MovieFavoriteLayout;
 

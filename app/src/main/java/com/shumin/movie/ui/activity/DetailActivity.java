@@ -47,10 +47,10 @@ public class DetailActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        // fetch detail data via the movie id
         Map<String, String> params = new LinkedHashMap<>();
         params.put("i", movieId);   // search through movie id to get specific movie
         params.put("plot", "full"); // get detail summary
-
         Call<Movie> call = RestClient.getClient().getMovieDetail(params);
         call.enqueue(new Callback<Movie>() {
             @Override
@@ -66,8 +66,6 @@ public class DetailActivity extends AppCompatActivity {
                                 .into(((ImageView) findViewById(R.id.detail_poster)));
                         ((CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar)).setTitle(movie.getTitle());
                         recyclerView.setAdapter(new DetailAdapter(list));
-                    } else {
-
                     }
                 }
             }

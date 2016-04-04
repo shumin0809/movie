@@ -21,4 +21,6 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
+    <string name="fetch">fetching data&#8230;</string>
+
 </resources>
