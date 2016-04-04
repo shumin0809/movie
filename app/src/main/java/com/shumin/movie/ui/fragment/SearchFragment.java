@@ -90,7 +90,7 @@ public class SearchFragment extends BaseFragment {
                                 searchResult.setText(getString(R.string.search_results, result.getSize()));
                             }
                             if (adapter == null) {
-                                recyclerView.setAdapter(adapter = new ResultAdapter(result.getMovies()));
+                                recyclerView.setAdapter(adapter = new ResultAdapter(result.getMovies(), result.getSize()));
                             } else {
                                 adapter.addMovies(result.getMovies());
                             }
