@@ -31,7 +31,7 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public ResultAdapter (List<Movie> results, int totalResults) {
         content.addAll(results);
         this.totalResults = totalResults;
-        moreData = content.size() < totalResults;
+        moreData = content.size() < totalResults; // check if we need to do pagination
     }
 
     @Override

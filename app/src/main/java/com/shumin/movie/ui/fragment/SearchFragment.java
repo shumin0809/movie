@@ -103,6 +103,7 @@ public class SearchFragment extends BaseFragment {
         Map<String, Object> params = new LinkedHashMap<>();
         params.put("s", search);
         params.put("page", page);
+        params.put("type", "movie"); // only search for movies
         Call<Result> call = RestClient.getClient().searchMovie(params);
         call.enqueue(new Callback<Result>() {
             @Override
