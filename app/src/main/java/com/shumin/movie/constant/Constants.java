@@ -7,4 +7,5 @@ public class Constants {
 
     public static final String END_POINT = "http://www.omdbapi.com/?";
 
+    public static final String MOVIE_ID = "imdbid";
 }

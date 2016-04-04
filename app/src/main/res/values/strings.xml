@@ -16,4 +16,9 @@
     <string name="favorite_fail">The movie was already added!</string>
     <string name="favorite_success">The movie is successfully added!</string>
 
+    <string name="remove">Remove from favorite</string>
+    <string name="confirm_message">Are you sure?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
 </resources>

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.shumin.movie.R;
+import com.shumin.movie.event.Events;
 import com.shumin.movie.model.Movie;
 import com.shumin.movie.ui.component.MovieFavoriteLayout;
 
@@ -17,7 +18,7 @@ import java.util.List;
  */
 public class FavoriteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Movie> content = new ArrayList<>();
+    public List<Movie> content = new ArrayList<>();
 
     public FavoriteAdapter(List<Movie> results) {
         content.addAll(results);
@@ -38,6 +39,19 @@ public class FavoriteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public int getItemCount() {
         return content.size();
+    }
+
+    public void addMovie(Movie movie) {
+        content.add(movie);
+        notifyItemInserted(content.size() - 1);
+    }
+
+    public void removeMovie(Movie movie) {
+        int position = content.indexOf(movie);
+        if (position != -1) {
+            content.remove(position);
+            notifyItemRemoved(position);
+        }
     }
 
     public static class FavoriteViewHolder extends RecyclerView.ViewHolder {

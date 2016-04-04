@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
 import com.shumin.movie.R;
+import com.shumin.movie.constant.Constants;
 import com.shumin.movie.model.Movie;
 import com.shumin.movie.model.Result;
 import com.shumin.movie.rest.RestClient;
@@ -40,15 +41,16 @@ public class DetailActivity extends AppCompatActivity {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
-        String movieId = getIntent().getExtras().getString("imdbid");
+        String movieId = getIntent().getExtras().getString(Constants.MOVIE_ID);
 
         recyclerView = (RecyclerView) findViewById(R.id.detail_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         Map<String, String> params = new LinkedHashMap<>();
-        params.put("i", movieId);
-        params.put("plot", "full");
+        params.put("i", movieId);   // search through movie id to get specific movie
+        params.put("plot", "full"); // get detail summary
+
         Call<Movie> call = RestClient.getClient().getMovieDetail(params);
         call.enqueue(new Callback<Movie>() {
             @Override

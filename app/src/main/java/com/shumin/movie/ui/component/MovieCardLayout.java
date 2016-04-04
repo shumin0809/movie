@@ -9,10 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shumin.movie.R;
+import com.shumin.movie.constant.Constants;
+import com.shumin.movie.event.Events;
 import com.shumin.movie.model.Movie;
 import com.shumin.movie.ui.activity.DetailActivity;
 import com.shumin.movie.ui.activity.MainActivity;
 import com.squareup.picasso.Picasso;
+
+import de.greenrobot.event.EventBus;
+
 
 /**
  * Created by shumin on 4/3/16.
@@ -20,6 +25,7 @@ import com.squareup.picasso.Picasso;
 public class MovieCardLayout extends CardView {
 
     private Movie movie;
+    private Events.AddToFavoriteEvent addToFavoriteEvent = new Events.AddToFavoriteEvent();
 
     public MovieCardLayout(Context context) {
         super(context);
@@ -39,22 +45,34 @@ public class MovieCardLayout extends CardView {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), DetailActivity.class);
-                intent.putExtra("imdbid", MovieCardLayout.this.movie.getMovieId());
+                intent.putExtra(Constants.MOVIE_ID, MovieCardLayout.this.movie.getMovieId());
                 getContext().startActivity(intent);
             }
         });
 
+        findViewById(R.id.favorite).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addToFavoriteList();
+            }
+        });
         setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if (((MainActivity) getContext()).movieDbHelper.addMovie(movie)) {
-                    ((MainActivity) getContext()).showToast(R.string.favorite_success);
-                } else {
-                    ((MainActivity) getContext()).showToast(R.string.favorite_fail);
-                }
+                addToFavoriteList();
                 return true;
             }
         });
+    }
+
+    private void addToFavoriteList() {
+        if (((MainActivity) getContext()).movieDbHelper.addMovie(movie)) {
+            addToFavoriteEvent.movieId = movie.getMovieId();
+            EventBus.getDefault().post(addToFavoriteEvent);
+            ((MainActivity) getContext()).showToast(R.string.favorite_success);
+        } else {
+            ((MainActivity) getContext()).showToast(R.string.favorite_fail);
+        }
     }
 
 }

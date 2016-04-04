@@ -144,4 +144,26 @@ public class MovieDbHelper extends SQLiteOpenHelper {
         return count;
     }
 
+    public Movie getMovie(String movieId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String sqlQuery = "SELECT * FROM " + TABLE_OBJECT + " WHERE " + COLUMN_MOVIE_ID + " = " + "\""
+                + movieId + "\"";
+
+        Cursor cursor = db.rawQuery(sqlQuery, null);
+
+        Movie contact = new Movie();
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            contact.setId(Integer.parseInt(cursor.getString(0)));
+            contact.setTitle(cursor.getString(1));
+            contact.setYear(cursor.getString(2));
+            contact.setImdbID(cursor.getString(3));
+            contact.setPoster(cursor.getString(4));
+        }
+        // return contact
+        return contact;
+    }
+
 }

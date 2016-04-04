@@ -57,6 +57,18 @@
             android:textColor="@color/white"
             />
 
+        <ImageView
+            android:id="@+id/favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:padding="10dp"
+            android:src="@mipmap/ic_add"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            />
+
     </RelativeLayout>
 
 </com.shumin.movie.ui.component.MovieCardLayout>
