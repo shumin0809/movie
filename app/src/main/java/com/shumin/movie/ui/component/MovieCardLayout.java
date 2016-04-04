@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.shumin.movie.R;
 import com.shumin.movie.model.Movie;
 import com.shumin.movie.ui.activity.DetailActivity;
+import com.shumin.movie.ui.activity.MainActivity;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -28,7 +30,7 @@ public class MovieCardLayout extends CardView {
         super(context, attrs);
     }
 
-    public void setContent(Movie movie) {
+    public void setContent(final Movie movie) {
         this.movie = movie;
         ImageView imageView = (ImageView) findViewById(R.id.poster);
         Picasso.with(getContext()).load(movie.getPosterUrl()).placeholder(R.mipmap.imdb).into(imageView);
@@ -40,6 +42,15 @@ public class MovieCardLayout extends CardView {
                 Intent intent = new Intent(getContext(), DetailActivity.class);
                 intent.putExtra("imdbid", MovieCardLayout.this.movie.getMovieId());
                 getContext().startActivity(intent);
+            }
+        });
+
+        setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                ((MainActivity) getContext()).movieDbHelper.addMovie(movie);
+                Log.d("onLongClick", "size = " + ((MainActivity) getContext()).movieDbHelper.getMoviesSize());
+                return true;
             }
         });
     }

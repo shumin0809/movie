@@ -27,6 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:scaleType="centerCrop"
+                android:background="@drawable/gradient_view"
                 />
 
             <android.support.v7.widget.Toolbar
@@ -47,12 +48,5 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         />
-
-    <!--<include-->
-        <!--layout="@layout/layout_paginated_refreshable"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
-        <!--/>-->
 
 </android.support.design.widget.CoordinatorLayout>

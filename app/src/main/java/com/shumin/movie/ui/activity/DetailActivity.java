@@ -60,6 +60,7 @@ public class DetailActivity extends AppCompatActivity {
                         list.add(movie);
                         Picasso.with(DetailActivity.this)
                                 .load(movie.getPosterUrl())
+                                .placeholder(R.mipmap.imdb)
                                 .into(((ImageView) findViewById(R.id.detail_poster)));
                         ((CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar)).setTitle(movie.getTitle());
                         recyclerView.setAdapter(new DetailAdapter(list));

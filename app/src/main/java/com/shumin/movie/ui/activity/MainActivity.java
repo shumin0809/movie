@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.shumin.movie.R;
+import com.shumin.movie.database.MovieDbHelper;
 import com.shumin.movie.model.Result;
 import com.shumin.movie.rest.RestClient;
 import com.shumin.movie.ui.adapter.BaseStatePagerAdapter;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TabLayout tabLayout;
 
+    public MovieDbHelper movieDbHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         setupUi();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        movieDbHelper.open();
+    }
+
+    @Override
+    protected void onDestroy() {
+        movieDbHelper.close();
+        super.onDestroy();
     }
 
     private void setupUi() {
@@ -52,5 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 tabLayout.setupWithViewPager(viewPager);
             }
         });
+
+        movieDbHelper = new MovieDbHelper(this);
     }
 }
