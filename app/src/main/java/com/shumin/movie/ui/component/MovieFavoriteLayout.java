@@ -3,6 +3,7 @@ package com.shumin.movie.ui.component;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,8 +12,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.shumin.movie.R;
+import com.shumin.movie.constant.Constants;
 import com.shumin.movie.event.Events;
 import com.shumin.movie.model.Movie;
+import com.shumin.movie.ui.activity.DetailActivity;
 import com.squareup.picasso.Picasso;
 
 import de.greenrobot.event.EventBus;
@@ -53,6 +56,15 @@ public class MovieFavoriteLayout extends RelativeLayout {
                         })
                         .setNegativeButton(R.string.no, null)
                         .show();
+            }
+        });
+
+        setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), DetailActivity.class);
+                intent.putExtra(Constants.MOVIE_ID, movie.getMovieId());
+                getContext().startActivity(intent);
             }
         });
 
