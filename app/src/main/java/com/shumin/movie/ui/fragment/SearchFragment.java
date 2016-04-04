@@ -63,7 +63,6 @@ public class SearchFragment extends BaseFragment {
                             } else {
                                 searchResult.setText(getString(R.string.search_results, result.getSize()));
                             }
-
                             recyclerView.setAdapter(adapter = new ResultAdapter(result.getMovies()));
                         }
                     } else {

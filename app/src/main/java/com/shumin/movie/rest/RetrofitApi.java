@@ -1,5 +1,6 @@
 package com.shumin.movie.rest;
 
+import com.shumin.movie.model.Movie;
 import com.shumin.movie.model.Result;
 
 import java.util.Map;
@@ -16,4 +17,6 @@ public interface RetrofitApi {
     @GET("/")
     Call<Result> searchMovie(@QueryMap Map<String, String> params);
 
+    @GET("/")
+    Call<Movie> getMovieDetail(@QueryMap Map<String, String> params);
 }

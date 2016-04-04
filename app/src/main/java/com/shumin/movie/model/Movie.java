@@ -10,6 +10,12 @@ public class Movie {
     private String Type;
     private String imdbID;
 
+    // movie detail
+    private String Plot;
+    private String Director;
+    private boolean Response;
+    private String Error = "";
+
     public String getPosterUrl() {
         return Poster;
     }
@@ -28,5 +34,23 @@ public class Movie {
 
     public String getMovieId() {
         return imdbID;
+    }
+
+
+    // get movie detail;
+    public String getPlot() {
+        return Plot;
+    }
+
+    public String getDirector() {
+        return Director;
+    }
+
+    public boolean hasResponse() {
+        return Response;
+    }
+
+    public String getError() {
+        return Error;
     }
 }

@@ -7,4 +7,10 @@
     <string name="movie_type">Movie</string>
     <string name="search_results">&#160;&#183; %s results</string>
     <string name="search_result">&#160;&#183; 1 result</string>
+
+    <!--detail view -->
+    <string name="director">Director</string>
+    <string name="summary">Summary</string>
+
+
 </resources>
