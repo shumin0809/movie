@@ -12,5 +12,8 @@
     <string name="director">Director</string>
     <string name="summary">Summary</string>
 
+    <!--error -->
+    <string name="favorite_fail">The movie was already added!</string>
+    <string name="favorite_success">The movie is successfully added!</string>
 
 </resources>

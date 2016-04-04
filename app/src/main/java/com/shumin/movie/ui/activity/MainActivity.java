@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shumin.movie.R;
 import com.shumin.movie.database.MovieDbHelper;
@@ -70,4 +71,9 @@ public class MainActivity extends AppCompatActivity {
 
         movieDbHelper = new MovieDbHelper(this);
     }
+
+    public void showToast(int stringId) {
+        Toast.makeText(this, stringId, Toast.LENGTH_SHORT).show();
+    }
+
 }

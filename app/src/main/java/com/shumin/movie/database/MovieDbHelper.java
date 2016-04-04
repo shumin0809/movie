@@ -75,7 +75,7 @@ public class MovieDbHelper extends SQLiteOpenHelper {
      * All CRUD(Create, Read, Update, Delete) Operations
      */
 
-    public void addMovie(Movie info) {
+    public boolean addMovie(Movie info) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -85,7 +85,18 @@ public class MovieDbHelper extends SQLiteOpenHelper {
         values.put(COLUMN_POSTER, info.getPosterUrl());
 
         // Inserting Row
-        db.insert(TABLE_OBJECT, null, values);
+        String sqlQuery = "SELECT * FROM " + TABLE_OBJECT + " WHERE " + COLUMN_MOVIE_ID + " = " + "\""
+                + info.getMovieId() + "\"";
+
+        Cursor c = db.rawQuery(sqlQuery, null);
+        if (c != null && c.getCount() != 0) {
+            // duplicate
+            c.close();
+            return false;
+        } else {
+            db.insert(TABLE_OBJECT, null, values);
+            return true;
+        }
     }
 
     // Getting All Contacts

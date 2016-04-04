@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,8 +47,11 @@ public class MovieCardLayout extends CardView {
         setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                ((MainActivity) getContext()).movieDbHelper.addMovie(movie);
-                Log.d("onLongClick", "size = " + ((MainActivity) getContext()).movieDbHelper.getMoviesSize());
+                if (((MainActivity) getContext()).movieDbHelper.addMovie(movie)) {
+                    ((MainActivity) getContext()).showToast(R.string.favorite_success);
+                } else {
+                    ((MainActivity) getContext()).showToast(R.string.favorite_fail);
+                }
                 return true;
             }
         });
