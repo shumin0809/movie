@@ -1,7 +1,6 @@
 package com.shumin.movie.ui.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,8 +26,8 @@ import retrofit2.Response;
 public class SearchFragment extends BaseFragment {
 
     private RecyclerView recyclerView;
-    private TextView resultBrif;
     private ResultAdapter adapter;
+    private TextView searchResult;
 
     private Result result;
 
@@ -41,7 +40,7 @@ public class SearchFragment extends BaseFragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        resultBrif = (TextView) view.findViewById(R.id.result);
+        searchResult = (TextView) view.findViewById(R.id.result);
 
         search();
 
@@ -58,12 +57,17 @@ public class SearchFragment extends BaseFragment {
                 if (response.isSuccessful()) {
                     result = response.body();
                     if (result.hasResponse()) {
-                        resultBrif.setText("Total Results: " + result.getSize());
                         if (result.getSize() > 0) {
-                            recyclerView.setAdapter(adapter = new ResultAdapter(result.getResults()));
+                            if (result.getSize() == 1) {
+                                searchResult.setText(getString(R.string.search_result));
+                            } else {
+                                searchResult.setText(getString(R.string.search_results, result.getSize()));
+                            }
+
+                            recyclerView.setAdapter(adapter = new ResultAdapter(result.getMovies()));
                         }
                     } else {
-                        resultBrif.setText(result.getError());
+                        searchResult.setText(result.getError());
                     }
                 }
             }

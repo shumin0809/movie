@@ -8,14 +8,25 @@
         android:id="@+id/topPanel"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/default_padding"
+        android:gravity="center_vertical"
         >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/regular_font_size"
+            android:textStyle="bold"
+            android:text="@string/movie_type"
+            />
 
         <TextView
             android:id="@+id/result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/default_padding"
-            android:layout_gravity="center_vertical"
+            android:textSize="@dimen/regular_font_size"
             />
 
     </LinearLayout>

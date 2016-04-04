@@ -44,5 +44,13 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.view_pager_tabs);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                // according to the open bug from Google
+                // https://code.google.com/p/android/issues/detail?id=180462
+                tabLayout.setupWithViewPager(viewPager);
+            }
+        });
     }
 }

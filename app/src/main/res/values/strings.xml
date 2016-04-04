@@ -3,4 +3,8 @@
 
     <string name="browse">Browse</string>
     <string name="favorite">Favorite</string>
+
+    <string name="movie_type">Movie</string>
+    <string name="search_results">&#160;&#183; %s results</string>
+    <string name="search_result">&#160;&#183; 1 result</string>
 </resources>

@@ -17,7 +17,7 @@ public class Result {
     private Boolean Response;
     private int totalResults;
     private String Error = "";
-    private List<Search> Search = new ArrayList<>();
+    private List<Movie> Search = new ArrayList<>();
 
     public boolean hasResponse() {
         return Response;
@@ -31,15 +31,7 @@ public class Result {
         return Error;
     }
 
-    public List<Search> getResults() {
+    public List<Movie> getMovies() {
         return this.Search;
-    }
-
-    public class Search {
-        public String Poster;
-        public String Title;
-        public String Year;
-        public String Type;
-        public String imdbID;
     }
 }

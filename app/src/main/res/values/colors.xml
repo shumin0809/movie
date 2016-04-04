@@ -5,6 +5,15 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 
     <color name="blue">#5BC0DE</color>
+
+
+    <color name="black_alpha_10">#1A000000</color>
+    <color name="black_alpha_20">#33000000</color>
+    <color name="black_alpha_35">#59000000</color>
+    <color name="black_alpha_60">#99000000</color>
+    <color name="black_alpha_65">#A5000000</color>
+    <color name="black_alpha_85">#BF000000</color>
 </resources>

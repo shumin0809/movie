@@ -4,10 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.shumin.movie.R;
-import com.shumin.movie.model.Result;
+import com.shumin.movie.model.Movie;
+import com.shumin.movie.ui.component.MovieCardLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,22 +17,23 @@ import java.util.List;
  */
 public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Result.Search> content = new ArrayList<>();
+    private List<Movie> content = new ArrayList<>();
 
-    public ResultAdapter (List<Result.Search> results) {
+    public ResultAdapter (List<Movie> results) {
         content.addAll(results);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.result_item, parent, false);
+                .inflate(R.layout.layout_movie_card, parent, false);
         return new ResultViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((ResultViewHolder) holder).textView.setText(content.get(position).Title);
+        ResultViewHolder resultViewHolder = (ResultViewHolder) holder;
+        resultViewHolder.movieCardLayout.setContent(content.get(position));
     }
 
     @Override
@@ -41,11 +42,11 @@ public class ResultAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public static class ResultViewHolder extends RecyclerView.ViewHolder {
-        public TextView textView;
+        MovieCardLayout movieCardLayout;
 
         public ResultViewHolder(View itemView) {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.title);
+            movieCardLayout = (MovieCardLayout) itemView;
         }
 
     }
