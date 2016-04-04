@@ -1,14 +1,18 @@
 package com.shumin.movie.ui.activity;
 
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.shumin.movie.R;
 import com.shumin.movie.model.Result;
 import com.shumin.movie.rest.RestClient;
+import com.shumin.movie.ui.adapter.BaseStatePagerAdapter;
 import com.shumin.movie.ui.adapter.ResultAdapter;
 
 import java.util.LinkedHashMap;
@@ -20,11 +24,8 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private TextView resultBrif;
-    private ResultAdapter adapter;
-
-    private Result result;
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
 
 
     @Override
@@ -32,35 +33,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        setupUi();
+    }
 
-        resultBrif = (TextView) findViewById(R.id.result);
+    private void setupUi() {
+        setSupportActionBar((Toolbar) findViewById(R.id.view_pager_toolbar));
 
-        Map<String, String> params = new LinkedHashMap<>();
-        params.put("s", "ba");
-        Call<Result> call = RestClient.getClient().searchMovie(params);
-        call.enqueue(new Callback<Result>() {
-            @Override
-            public void onResponse(Call<Result> call, Response<Result> response) {
-                if (response.isSuccessful()) {
-                    result = response.body();
-                    if (result.hasResponse()) {
-                        resultBrif.setText("Total Results: " + result.getSize());
-                        if (result.getSize() > 0) {
-                            recyclerView.setAdapter(adapter = new ResultAdapter(result.getResults()));
-                        }
-                    } else {
-                        resultBrif.setText(result.getError());
-                    }
-                }
-            }
+        viewPager = (ViewPager) findViewById(R.id.view_pager);
+        viewPager.setAdapter(new BaseStatePagerAdapter(getFragmentManager(), this));
 
-            @Override
-            public void onFailure(Call<Result> call, Throwable t) {
-
-            }
-        });
+        tabLayout = (TabLayout) findViewById(R.id.view_pager_tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 }
